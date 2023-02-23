@@ -1,2 +1,42 @@
 텍스트 파일이래서 만들어봄
 ㅋㅋ
+
+------- 두번째 변경사항 -------
+
+이게 git push origin master 하면 뿅 하고 될 줄 알았는데,
+동영상과 달리 터미널에서 두가지 작업을 해줘야 된다. (git bash 말고 프로잭트 터미널에서)
+
+
+
+<첫번째> (참조: https://jjam89.tistory.com/188)
+remote 연결고리를 재설정 해줘야 한다. http 대신에 ssh 주소를 사용해야 한다.
+재설정 하는 코드
+git remote set-url git@github.com:SEOPD/Github-and-Jupyter.git
+
+
+
+<두번째> (참조 https://dongza.tistory.com/15)
+나만 접속할 수 있게 보안키를 만들어줘야 한다. 다음을 따라하라.
+ssh key 생성하기
+$ ssh-keygen -t rsa -C "{your-github-email}"
+/ / 이후 엔터 3번
+정상적으로 생성되었다면 public key, fingerprint 등 이것저것 만들었다는 안내 문구가 출력될 것이다.
+
+다음 명령을 통해 우리가 필요한 ssh key를 출력한다.
+
+$ cat ~/.ssh/id_rsa.pub
+출력된 정상적인 ssh key는 ssh-rsa로 시작해서 위에서 입력한 {your-github-email}로 끝날 것이다.
+
+ssh-rsa 부터 이메일 끝까지 모두 복사해둔다.
+
+github에 생성한 ssh key 등록하기
+본인의 github 계정의 Settings로 들어간다.
+image
+`SSH and GPG keys 탭으로 이동
+image
+New SSH Key 클릭
+image
+Key에다 복사해둔 ssh key를 입력하고 Title은 맘에 드는 이름을 지어주자.
+image
+Add SSH Key를 누르고 비밀번호를 입력하라는 창이 뜨면 입력해준다.
+끝났다. 이제 다시 (아마도)git push origin master 명령을 수행해보면 정상적으로 동작할 것이다.
